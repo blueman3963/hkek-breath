@@ -28,14 +28,15 @@
     .input {
         border: none;
         outline: none;
-        border-bottom: 1px solid #000;
         font-size: 40px;
-        padding: 10px 0px;
+        padding: 10px 40px;
+        border-radius: 100px;
+        cursor: text;
     }
 
     .submit {
         font-size: 30px;
-        background-color: #9af;
+        background-color: #999;
         color: #fff;
         width: 100px;
         height: 100px;
@@ -43,5 +44,23 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-left: -100px;
+        transition: .5s;
+
+        &:hover {
+            background-color: #333;
+            cursor: pointer;
+        }
     }
+}
+
+.bg {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    display: block;
+    position: fixed;
+    z-index: -999;
 }
