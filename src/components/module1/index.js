@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import Main from './main'
 
 import styles from './module1.module.scss'
 
-export default function () {
+export default function Module1 () {
 
     const [init, setInit] = useState(false)
     const [name, setName] = useState('')
@@ -21,7 +21,7 @@ export default function () {
                 <input onChange={e => setName(e.target.value)}ref={input} className={styles.input} placeholder='Name' maxLength='20'/>
                 <div onClick={() => process()} className={styles.submit}>GO</div>
             </div>
-            : <Main name={name} color='#333333'/>
+            : <Main name={name}/>
         }
     </div>
 }

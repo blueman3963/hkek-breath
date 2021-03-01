@@ -1,3 +1,4 @@
+ /* eslint-disable */ 
 import styles from './module1.module.scss'
 
 import { useState, useEffect, useRef } from 'react'
@@ -28,8 +29,7 @@ const socket = io(server,{transports: ['websocket'], upgrade: false});
 export default function Main (props) {
 
     const {
-        name,
-        color
+        name
     } = props
 
     const id = useRef(null)
@@ -137,6 +137,49 @@ export default function Main (props) {
 
         },20)
 
+        const handleBroadcast = (data) => {
+            
+            const type = data.type
+
+            switch(type) {
+                case 'location':
+                    renderUsers(data)
+                    break
+                case 'newClient':
+                    if(data.user.id === id) return
+                    users.current[data.user.id] = data.user
+                    addNewUser(data.user)
+                    break
+                case 'kill':
+                    if (!users.current[data.userId]) return
+                    users.current[data.userId].sprite.parent.removeChild(users.current[data.userId].sprite)
+                    users.current[data.userId].text.parent.removeChild(users.current[data.userId].text)
+                    delete users[data.userId]
+                    break;
+                default:
+                    return
+            }
+        }
+
+        const addNewUser = (user) => {
+            if(!app) return
+
+            let testTexture = PIXI.Texture.from(tex[user.color])
+            let sprite = new PIXI.Sprite(testTexture)
+            sprite.anchor.set(0.5)
+            sprite.scale.set(0.1)
+            sprite.x = app.screen.width/2
+            sprite.y = app.screen.height/2
+            sprite.zIndex = user.id === id.current ? 99 : 1
+            mainRef.current.addChild(sprite)
+            users.current[user.id].sprite = sprite
+
+            let text = new PIXI.Text(user.name,{fontFamily : 'Arial', fontSize: 20, fill : 0x333333, align : 'center'});
+            text.anchor.set(0, 1.2)
+            app.stage.addChild(text)
+            users.current[user.id].text = text        
+        }
+
         return () => {
             document.removeEventListener('mousemove', handleCursor)
             document.removeEventListener('mousedown', handleMouseDown) 
@@ -144,6 +187,7 @@ export default function Main (props) {
             document.removeEventListener('keydown', handleKeyDown)
             document.removeEventListener('keyup', handleKeyUp)
         }
+        
 
     },[app])
 
@@ -184,52 +228,6 @@ export default function Main (props) {
     const handleTouchStart = (e) => {
         setHolding(true)
         target.current = [e.clientX/window.innerWidth,e.clientY/window.innerHeight]
-    }
-
-    const handleBroadcast = (data) => {
-        
-        const type = data.type
-
-        switch(type) {
-            case 'location':
-                renderUsers(data)
-                break
-            case 'newClient':
-                if(data.user.id === id) return
-                users.current[data.user.id] = data.user
-                addNewUser(data.user)
-                break
-            case 'kill':
-                if (!users.current[data.userId]) return
-                users.current[data.userId].sprite.parent.removeChild(users.current[data.userId].sprite)
-                users.current[data.userId].text.parent.removeChild(users.current[data.userId].text)
-                delete users[data.userId]
-                break;
-            default:
-                return
-        }
-    }
-
-    const addNewUser = (user) => {
-        if(!app) return
-
-        let testTexture = PIXI.Texture.from(tex[user.color])
-        let sprite = new PIXI.Sprite(testTexture)
-        sprite.anchor.set(0.5)
-        sprite.scale.set(0.1)
-        sprite.x = app.screen.width/2
-        sprite.y = app.screen.height/2
-        sprite.zIndex = user.id === id.current ? 99 : 1
-        mainRef.current.addChild(sprite)
-        users.current[user.id].sprite = sprite
-
-        let text = new PIXI.Text(user.name,{fontFamily : 'Arial', fontSize: 20, fill : 0x333333, align : 'center'});
-        text.anchor.set(0, 1.2)
-        app.stage.addChild(text)
-        users.current[user.id].text = text
-
-
-        
     }
 
     const renderUsers = ({data:data}) => {
