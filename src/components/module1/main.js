@@ -110,7 +110,6 @@ export default function Main (props) {
             })
         })
 
-        socket.on('broadcast', handleBroadcast)
 
         document.addEventListener('mousemove', handleCursor)
         document.addEventListener('mousedown', handleMouseDown)
@@ -160,6 +159,8 @@ export default function Main (props) {
                     return
             }
         }
+
+        socket.on('broadcast', handleBroadcast)
 
         const addNewUser = (user) => {
             if(!app) return
