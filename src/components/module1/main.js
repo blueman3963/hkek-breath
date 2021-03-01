@@ -172,6 +172,7 @@ export default function Main (props) {
             sprite.x = app.screen.width/2
             sprite.y = app.screen.height/2
             sprite.zIndex = user.id === id.current ? 99 : 1
+            sprite.blendMode = PIXI.BLEND_MODES.ADD;
             mainRef.current.addChild(sprite)
             users.current[user.id].sprite = sprite
 
