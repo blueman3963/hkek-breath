@@ -23,7 +23,7 @@ export default function Module1 () {
                 <input onChange={e => setName(e.target.value)}ref={input} className={styles.input} placeholder='Name' maxLength='12'/>
                 <div onClick={() => process()} className={styles.submit}>&#x2192;</div>
             </div>
-            <img src={bg} className={styles.bg} />
+            <img src={bg} className={styles.bg} alt=''/>
             </>
             : <Main name={name}/>
         }
