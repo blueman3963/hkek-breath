@@ -3,12 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/helper-validator-option": "^7.12.17",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "@testing-library/user-event": "^12.8.0",
+    "pixi.js": "^5.3.8",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
+    "sass": "^1.32.8",
+    "socket.io": "^3.1.2",
+    "socket.io-client": "^3.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

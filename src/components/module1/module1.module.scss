@@ -1,0 +1,47 @@
+.canvas {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ddeeff;
+    cursor: sw-resize;
+}
+
+.instruction {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+}
+
+.intro {
+    position: fixed;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    display: flex;
+
+    .input {
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #000;
+        font-size: 40px;
+        padding: 10px 0px;
+    }
+
+    .submit {
+        font-size: 30px;
+        background-color: #9af;
+        color: #fff;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
